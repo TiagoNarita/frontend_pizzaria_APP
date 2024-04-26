@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <h1>Dujeito pizza</h1>
+      <h1>Sujeito pizza</h1>
     </div>
   );
 }
