@@ -1,4 +1,7 @@
 import Head from "next/head";
+import styles from "../../styles/Home.module.scss";
+import logoImg from "../../public/logo.svg";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -6,8 +9,11 @@ export default function Home() {
       <Head>
         <title>SujeitoPizza - faça seu login</title>
       </Head>
-      <div>
-        <h1>Sujeito Pizzaria</h1>
+      <div className={styles.containerCenter}>
+        <Image src={logoImg} alt="Logo sujeito pizzaria" />
+        <div className={styles.login}>
+          <form></form>
+        </div>
       </div>
     </>
   );
