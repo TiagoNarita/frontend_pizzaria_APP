@@ -14,7 +14,8 @@ export default function Home() {
         <Image src={logoImg} alt="Logo sujeito pizzaria" />
         <div className={styles.login}>
           <form>
-            <Input />
+            <Input placeholder="Digite seu email" />
+            <Input placeholder="Digite sua senha" />
           </form>
         </div>
       </div>
