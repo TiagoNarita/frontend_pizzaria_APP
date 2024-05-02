@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../../styles/Home.module.scss";
+import styles from "../../styles/home.module.scss";
 import logoImg from "../../public/logo.svg";
 import Image from "next/image";
 import { Input } from "../components/ui/Input";
@@ -19,6 +19,8 @@ export default function Home() {
             <Input placeholder="Digite sua senha" type="password" />
             <Button loading={true}>Cadastrar</Button>
           </form>
+
+          <a>Não possui uma conta? Cadastra-se</a>
         </div>
       </div>
     </>
