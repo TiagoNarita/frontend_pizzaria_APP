@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/button";
 
+import Link from "next/link";
+
 export default function Home() {
   return (
     <>
@@ -17,10 +19,11 @@ export default function Home() {
           <form>
             <Input placeholder="Digite seu email" type="text" />
             <Input placeholder="Digite sua senha" type="password" />
-            <Button loading={false}>Cadastrar</Button>
+            <Button loading={false}>Acessar</Button>
           </form>
-
-          <a className={styles.text}>Não possui uma conta? Cadastra-se</a>
+          <Link href="/signup">
+            <p className={styles.text}>Não possui uma conta? Cadastra-se</p>
+          </Link>
         </div>
       </div>
     </>

@@ -15,6 +15,11 @@
   justify-content: center;
   padding: 2rem 1.5rem;
 
+  h1 {
+    color: var(--white);
+    padding-bottom: 1rem;
+  }
+
   form {
     display: flex;
     width: 90%;
