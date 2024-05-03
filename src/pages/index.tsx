@@ -17,10 +17,10 @@ export default function Home() {
           <form>
             <Input placeholder="Digite seu email" type="text" />
             <Input placeholder="Digite sua senha" type="password" />
-            <Button loading={true}>Cadastrar</Button>
+            <Button loading={false}>Cadastrar</Button>
           </form>
 
-          <a>Não possui uma conta? Cadastra-se</a>
+          <a className={styles.text}>Não possui uma conta? Cadastra-se</a>
         </div>
       </div>
     </>
