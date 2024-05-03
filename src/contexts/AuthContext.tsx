@@ -1,7 +1,7 @@
-import { createContext, ReactNode } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 type AuthContextData = {
-  user: UserProps;
+  user: UserProps | undefined;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
 };
@@ -21,8 +21,19 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-const AuthContext = createContext({} as AuthContextData);
+export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  const [user, setUser] = useState<UserProps>();
+  const isAuthenticated = !!user;
+
+  async function signIn() {
+    alert("clicou no login");
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
