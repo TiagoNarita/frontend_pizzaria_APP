@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { parseCookies } from "nookies";
+import { AuthTokenError } from "./errors/AuthTokenError";
 
 export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
@@ -16,14 +17,18 @@ export function setupAPIClient(ctx = undefined) {
       return response;
     },
     (error: AxiosError) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         //qualquer erro 401 (nao autorizado) devemos deslogar o usuario
         if (typeof window !== undefined) {
           //chamar a função para deslogar o usuario
         } else {
-          return Promise.reject;
+          return Promise.reject(new AuthTokenError());
         }
       }
+
+      return Promise.reject(error);
     }
   );
+
+  return api;
 }
