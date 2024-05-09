@@ -1,8 +1,9 @@
 import { createContext, ReactNode, useState } from "react";
 
-import { destroyCookie } from "nookies";
+import { destroyCookie, setCookie, parseCookies } from "nookies";
 import Router from "next/router";
 import { api } from "../services/apiClient";
+import path from "path";
 
 type AuthContextData = {
   user: UserProps | undefined;
@@ -48,7 +49,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
 
-      //console.log(response.data);
+      const { id, name, token } = response.data;
+
+      setCookie(undefined, "@nextauth.token", token, {
+        maxAge: 60 * 60 * 24 * 30, // expire im 1 month
+        path: "/",
+      });
+
+      setUser({
+        id,
+        name,
+        email,
+      });
     } catch (error) {
       console.log("Error to access", error);
     }
