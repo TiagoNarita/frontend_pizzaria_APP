@@ -61,6 +61,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         name,
         email,
       });
+
+      //pass token to next requests
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
     } catch (error) {
       console.log("Error to access", error);
     }
