@@ -22,12 +22,21 @@ export default function Home() {
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
+    if (email === "" || password === "") {
+      alert("preencha oos dados");
+      return;
+    }
+
+    setLoading(true);
+
     let data = {
       email,
       password,
     };
 
     await signIn(data);
+
+    setLoading(false);
   }
 
   return (
@@ -51,7 +60,7 @@ export default function Home() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button loading={false}>Acessar</Button>
+            <Button loading={loading}>Acessar</Button>
           </form>
           <Link href="/signup">
             <p className={styles.text}>Não possui uma conta? Cadastra-se</p>
