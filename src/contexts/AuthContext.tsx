@@ -64,6 +64,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       //pass token to next requests
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+      Router.push("/dashboard");
     } catch (error) {
       console.log("Error to access", error);
     }
