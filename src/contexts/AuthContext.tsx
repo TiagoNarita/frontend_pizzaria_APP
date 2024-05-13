@@ -10,6 +10,7 @@ type AuthContextData = {
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   singOut: () => void;
+  signUp: (credential: SignUpProps) => Promise<void>;
 };
 
 type UserProps = {
@@ -19,6 +20,12 @@ type UserProps = {
 };
 
 type SignInProps = {
+  email: string;
+  password: string;
+};
+
+type SignUpProps = {
+  name: string;
   email: string;
   password: string;
 };
@@ -71,8 +78,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function signUp({ email, password, name }: SignUpProps) {
+    console.log(name);
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, singOut }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, signIn, singOut, signUp }}
+    >
       {children}
     </AuthContext.Provider>
   );

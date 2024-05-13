@@ -6,15 +6,18 @@ import { Input } from "../../components/ui/Input";
 import { Button } from "../../components/ui/button";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import { AuthContext } from "@/src/contexts/AuthContext";
 
 export default function SignUp() {
+  const { signUp } = useContext(AuthContext);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSignUP = (event: FormEvent) => {
+  const handleSignUP = async (event: FormEvent) => {
     event.preventDefault();
 
     if (name === "" || email === "" || password === "") {
@@ -28,6 +31,9 @@ export default function SignUp() {
     };
 
     setLoading(true);
+
+    await signUp(data);
+    setLoading(false);
   };
 
   return (
