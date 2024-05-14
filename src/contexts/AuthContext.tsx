@@ -88,11 +88,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email,
         password,
       });
-
+      toast.success("Conta criada com sucesso");
       Router.push("/");
 
       console.log(resp);
     } catch (error) {
+      toast.error("Erro ao cadastrar");
       console.log("Error to signUp", error);
     }
   }
