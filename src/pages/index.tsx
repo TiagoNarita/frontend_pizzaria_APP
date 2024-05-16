@@ -10,6 +10,9 @@ import { Button } from "../components/ui/button";
 import { AuthContext } from "../contexts/AuthContext";
 
 import Link from "next/link";
+
+import { canSSRGuest } from "../utils/canSSRGuest";
+
 import { toast } from "react-toastify";
 
 export default function Home() {
@@ -17,7 +20,6 @@ export default function Home() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   async function handleLogin(event: FormEvent) {
@@ -71,3 +73,9 @@ export default function Home() {
     </>
   );
 }
+
+export const GetServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  };
+});
