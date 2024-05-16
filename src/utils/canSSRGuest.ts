@@ -7,13 +7,13 @@ import {
 import { parseCookies } from "nookies";
 
 // Função para páginas que só podem ser acessadas por visitantes
-export function canSSRGuest<P>(
-  fn: GetServerSideProps<<P>>
-) {
+export function canSSRGuest<P extends { [key: string]: any }>(
+  fn: GetServerSideProps<P>
+): GetServerSideProps<P> {
   return async (
     ctx: GetServerSidePropsContext
   ): Promise<GetServerSidePropsResult<P>> => {
-    //se o cara tentar acessar a pagina porem tendo ja um login salvo redirecionamos
+    // Se o usuário tentar acessar a página, mas já tiver um login salvo, redirecionamos
     const cookies = parseCookies(ctx);
 
     if (cookies["@nextauth.token"]) {
