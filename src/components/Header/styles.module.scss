@@ -13,6 +13,7 @@
 
   img {
     cursor: pointer;
+    margin-left: 2rem;
   }
 }
 
@@ -24,5 +25,26 @@
     color: var(--white);
     padding: 0 0.5rem;
     display: inline-block;
+    position: relative;
+    transition: color 0.5s;
+
+    & + a {
+      margin-left: 2rem;
+    }
+
+    &:hover {
+      color: var(--red-900);
+    }
+  }
+
+  button {
+    margin: 0 2rem;
+    background: transparent;
+    border: 0;
+    transition: transform 0.8s;
+
+    &:hover {
+      transform: scale(1.15);
+    }
   }
 }
