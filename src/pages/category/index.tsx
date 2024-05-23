@@ -2,7 +2,9 @@ import { Header } from "@/src/components/Header";
 import Head from "next/head";
 import styles from "./styles.module.scss";
 import { FormEvent, useState } from "react";
-import { setupAPIClient } from "@/src/services/api";
+import { api } from "@/src/services/apiClient";
+import { toast } from "react-toastify";
+import { canSSRAuth } from "@/src/utils/canSSRAuth";
 
 export default function Category() {
   const [name, setName] = useState("");
@@ -11,8 +13,16 @@ export default function Category() {
     event.preventDefault();
 
     if (name === "") {
+      toast.error("Insira o nome de uma categoria");
       return;
     }
+
+    await api.post("/category", {
+      name,
+    });
+
+    toast.success("categoria cadastrada com sucesso!");
+    setName("");
   }
 
   return (
@@ -43,3 +53,9 @@ export default function Category() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  return {
+    props: {},
+  };
+});
