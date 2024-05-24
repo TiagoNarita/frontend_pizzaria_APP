@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "./styles.module.scss";
 import { canSSRAuth } from "@/src/utils/canSSRAuth"; // Verifique este caminho
+import { Header } from "@/src/components/Header";
 
 export default function Product() {
   return (
@@ -9,7 +10,10 @@ export default function Product() {
         <title>Novo produto - sujeito pizza</title>
       </Head>
       <div>
-        <h1>Página novo produto</h1>
+        <Header />
+        <main className={styles.container}>
+          <h1>Novo Produto</h1>
+        </main>
       </div>
     </>
   );
