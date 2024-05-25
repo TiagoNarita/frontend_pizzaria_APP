@@ -3,8 +3,12 @@ import styles from "./styles.module.scss";
 import { canSSRAuth } from "@/src/utils/canSSRAuth"; // Verifique este caminho
 import { Header } from "@/src/components/Header";
 import { FiUpload } from "react-icons/fi";
+import { useState } from "react";
 
 export default function Product() {
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [imageAvatar, setImageAvatar] = useState("");
+
   return (
     <>
       <Head>
@@ -15,10 +19,14 @@ export default function Product() {
         <main className={styles.container}>
           <h1>Novo Produto</h1>
 
-          <label className={styles.label}>
+          <label className={styles.labelAvatar}>
             <span>
-              <FiUpload size={25} color="" />
+              <FiUpload size={25} color="#fff" />
             </span>
+
+            <input type="file" accept="image/png, image/jpeg" />
+
+            <img src="" alt="foto do produto" width={250} height={250} />
           </label>
 
           <form className={styles.form}>
