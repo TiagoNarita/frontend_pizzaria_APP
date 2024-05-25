@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "./styles.module.scss";
 import { canSSRAuth } from "@/src/utils/canSSRAuth"; // Verifique este caminho
 import { Header } from "@/src/components/Header";
+import { FiUpload } from "react-icons/fi";
 
 export default function Product() {
   return (
@@ -13,6 +14,12 @@ export default function Product() {
         <Header />
         <main className={styles.container}>
           <h1>Novo Produto</h1>
+
+          <label className={styles.label}>
+            <span>
+              <FiUpload size={25} color="" />
+            </span>
+          </label>
 
           <form className={styles.form}>
             <select>
