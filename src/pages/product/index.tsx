@@ -3,10 +3,11 @@ import styles from "./styles.module.scss";
 import { canSSRAuth } from "@/src/utils/canSSRAuth"; // Verifique este caminho
 import { Header } from "@/src/components/Header";
 import { FiUpload } from "react-icons/fi";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { setupAPIClient } from "@/src/services/api";
 import { api } from "@/src/services/apiClient";
 import { log } from "console";
+import { toast } from "react-toastify";
 
 export default function Product() {
   const [name, setName] = useState("");
@@ -53,6 +54,45 @@ export default function Product() {
     setCategorySelect(event.target.value);
   }
 
+  async function handleRegister(event: FormEvent) {
+    event.preventDefault();
+
+    try {
+      const data = new FormData();
+
+      if (
+        name === "" ||
+        price === "" ||
+        description === "" ||
+        imageAvatar === null
+      ) {
+        toast.error("Por favor forneça todos os dados");
+        return;
+      }
+
+      data.append("name", name);
+      data.append("price", price);
+      data.append("description", description);
+      data.append("category_id", category[categorySelect].id);
+      data.append("file", imageAvatar);
+
+      const apiClient = setupAPIClient();
+
+      await apiClient.post("/product", data);
+
+      toast.success("cadastrado com sucesso!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Ops erro ao cadastrar");
+    }
+
+    setName("");
+    setPrice("");
+    setDescription("");
+    setImageAvatar(null);
+    setAvatarUrl("");
+  }
+
   return (
     <>
       <Head>
@@ -84,7 +124,7 @@ export default function Product() {
             )}
           </label>
 
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleRegister}>
             <select value={categorySelect} onChange={handleChangeCategory}>
               {category.map((category, index) => {
                 return (
