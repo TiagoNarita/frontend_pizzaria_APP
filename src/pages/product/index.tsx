@@ -9,6 +9,10 @@ import { api } from "@/src/services/apiClient";
 import { log } from "console";
 
 export default function Product() {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+
   const [avatarUrl, setAvatarUrl] = useState("");
   const [imageAvatar, setImageAvatar] = useState<File | null>(null);
   const [category, setCategory] = useState([
@@ -95,16 +99,28 @@ export default function Product() {
               type="text"
               placeholder="Digite o nome do produto"
               className={styles.input}
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
             />
             <input
               type="text"
               placeholder="Preço do produto"
               className={styles.input}
+              value={price}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
             />
 
             <textarea
               placeholder="Descreva seu produto"
               className={styles.input}
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
             />
 
             <button className={styles.buttonAdd} type="submit">
