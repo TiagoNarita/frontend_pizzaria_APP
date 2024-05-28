@@ -3,11 +3,30 @@ import styles from "./styles.module.scss";
 import { canSSRAuth } from "@/src/utils/canSSRAuth"; // Verifique este caminho
 import { Header } from "@/src/components/Header";
 import { FiUpload } from "react-icons/fi";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { setupAPIClient } from "@/src/services/api";
+import { api } from "@/src/services/apiClient";
+import { log } from "console";
 
 export default function Product() {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [imageAvatar, setImageAvatar] = useState<File | null>(null);
+  const [category, setCategory] = useState([
+    {
+      name: "",
+      id: "",
+    },
+  ]);
+  const [categorySelect, setCategorySelect] = useState("");
+
+  useEffect(() => {
+    const getCategory = async () => {
+      const response = await api.get("/category");
+      setCategory(response.data);
+    };
+
+    getCategory();
+  }, []);
 
   function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) {
@@ -24,6 +43,10 @@ export default function Product() {
       setImageAvatar(image);
       setAvatarUrl(URL.createObjectURL(e.target.files[0]));
     }
+  }
+
+  function handleChangeCategory(event: any) {
+    setCategorySelect(event.target.value);
   }
 
   return (
@@ -58,9 +81,14 @@ export default function Product() {
           </label>
 
           <form className={styles.form}>
-            <select>
-              <option>Bebida</option>
-              <option>Pizzas</option>
+            <select value={categorySelect} onChange={handleChangeCategory}>
+              {category.map((category, index) => {
+                return (
+                  <option key={category.id} value={index}>
+                    {category.name}
+                  </option>
+                );
+              })}
             </select>
 
             <input
