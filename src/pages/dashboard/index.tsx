@@ -3,8 +3,45 @@ import { canSSRAuth } from "@/src/utils/canSSRAuth";
 import Head from "next/head";
 import styles from "./styles.module.scss";
 import { FiRefreshCcw } from "react-icons/fi";
+import { setupAPIClient } from "@/src/services/api";
+import { useState } from "react";
+import Modal from "react-modal";
 
-export default function Dashboard() {
+type orderProps = {
+  id: string;
+  table: string | number;
+  status: boolean;
+  draft: boolean;
+  name: string | null;
+};
+
+interface HomeProps {
+  orders: orderProps[];
+}
+
+type OrderItemProps = {
+  id: string;
+  amount: number;
+  order_id: string;
+  product_id: string;
+  product: {
+    id: string;
+    name: string;
+  };
+};
+
+export default function Dashboard({ orders }: HomeProps) {
+  const [orderList, setOrderList] = useState(orders || []);
+
+  const [modalItem, setModalItem] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  function handleOpenModalView(id: string) {
+    alert(id);
+  }
+
+  Modal.setAppElement("#__next");
+
   return (
     <>
       <Head>
@@ -21,12 +58,18 @@ export default function Dashboard() {
           </div>
 
           <article className={styles.listOrders}>
-            <section className={styles.orderItem}>
-              <button>
-                <div className={styles.tag}></div>
-                <span>Mesa 30</span>
-              </button>
-            </section>
+            {orderList.map((item) => (
+              <section key={item.id} className={styles.orderItem}>
+                <button
+                  onClick={() => {
+                    handleOpenModalView(item.id);
+                  }}
+                >
+                  <div className={styles.tag}></div>
+                  <span>Mesa {item.table}</span>
+                </button>
+              </section>
+            ))}
           </article>
         </main>
       </div>
@@ -35,7 +78,13 @@ export default function Dashboard() {
 }
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
+  const apiClient = setupAPIClient(ctx);
+
+  const resp = await apiClient.get("/orders");
+
   return {
-    props: {},
+    props: {
+      orders: resp.data,
+    },
   };
 });
