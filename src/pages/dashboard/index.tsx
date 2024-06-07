@@ -8,7 +8,7 @@ import { useState } from "react";
 import Modal from "react-modal";
 import { api } from "@/src/services/apiClient";
 import ModalOrder from "@/src/components/modalOrder";
-//IAM GOODDDD AND A FIILL OURWRITE
+
 type orderProps = {
   id: string;
   table: string | number;
