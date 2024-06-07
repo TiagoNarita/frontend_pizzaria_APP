@@ -4,17 +4,19 @@ import styles from "./styles.module.scss";
 import { FiX } from "react-icons/fi";
 import { OrderItemProps } from "@/src/pages/dashboard";
 
-interface ModarlOrderProps {
+interface ModalOrderProps {
   isOpen: boolean;
   onRequestClose: () => void;
   order: OrderItemProps[];
+  handleFinishOrder: (id: string) => void;
 }
 
 export default function ModalOrder({
   isOpen,
   onRequestClose,
   order,
-}: ModarlOrderProps) {
+  handleFinishOrder,
+}: ModalOrderProps) {
   const customStyles = {
     content: {
       top: "50%",
@@ -46,13 +48,22 @@ export default function ModalOrder({
         {order.map((item) => (
           <section key={item.id} className={styles.containerItem}>
             <span>
-              {item.amount} - {item.product.name}
+              {item.amount} - <strong>{item.product.name}</strong>
             </span>
             <span className={styles.description}>
               {item.product.description}
             </span>
           </section>
         ))}
+
+        <button
+          className={styles.buttonOrder}
+          onClick={() => {
+            handleFinishOrder(order[0].order_id);
+          }}
+        >
+          Concluir pedido
+        </button>
       </div>
     </Modal>
   );
